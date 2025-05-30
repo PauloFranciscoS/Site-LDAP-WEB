@@ -31,13 +31,14 @@ Facilitar a **troca de senha** pelos usuários do domínio, evitando a necessida
 
 ```bash
 Site-LDAP-WEB/
-├── index.php          # Página inicial com formulário de troca de senha
-├── config.php         # Configurações de conexão LDAP
-├── functions.php      # Funções auxiliares (ex: conexão, validação)
-├──css
-    ├──style.css       # Estilos visuais
-├──img
-  ├──Logo.png          # Logo se quiser  
-├──js
-  ├── script.js        # Complementação do site
-├── README.md          # Este arquivo
+├── index.php            # Página inicial com o formulário de troca de senha
+├── config.php           # Configurações de conexão LDAP
+├── functions.php        # Funções auxiliares (ex: conexão, validação)
+├── css/
+│   └── style.css        # Estilos visuais da interface
+├── img/
+│   └── Logo.png         # Logo do sistema (opcional)
+├── js/
+│   └── script.js        # Scripts JavaScript para interações no site
+├── README.md            # Documentação do projeto
+
