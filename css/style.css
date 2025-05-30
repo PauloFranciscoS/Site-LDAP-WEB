@@ -1,0 +1,310 @@
+/* ==========================================================================
+   Reset Básico e Configurações Globais
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px; /* Define o tamanho base da fonte */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte limpa e moderna */
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f7f6; /* Um fundo levemente acinzentado/esverdeado claro */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Cabeçalho (Header)
+   ========================================================================== */
+
+header {
+    background-color: #2c3e50; /* Azul escuro/ardósia (exemplo Specto) */
+    color: #ffffff;
+    padding: 1rem 2rem; /* 16px vertical, 32px horizontal */
+    display: flex;
+    align-items: center; /* Alinha verticalmente o logo e o título */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-link {
+    text-decoration: none;
+    display: inline-flex; /* Para alinhar corretamente com o flex do header */
+    align-items: center;
+}
+
+.header-logo {
+    max-height: 50px; /* Ajuste conforme o tamanho do seu logo */
+    margin-right: 15px; /* Espaço entre o logo e o título */
+}
+
+.header-title {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   Conteúdo Principal (Main)
+   ========================================================================== */
+
+main {
+    flex: 1; /* Faz o main ocupar o espaço restante verticalmente */
+    width: 90%;
+    max-width: 700px; /* Largura máxima para o conteúdo central */
+    margin: 2rem auto; /* Centraliza e adiciona margem vertical */
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #2c3e50; /* Mesma cor do header para consistência */
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem; /* 28.8px */
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   Formulários
+   ========================================================================== */
+
+form div {
+    margin-bottom: 1.25rem; /* Espaçamento entre os campos do formulário */
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #555;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem; /* 12px */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #3498db; /* Azul claro ao focar (exemplo Specto) */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+input[disabled] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+button[type="submit"],
+.button { /* Classe para links que parecem botões */
+    display: inline-block;
+    background-color: #3498db; /* Azul claro (exemplo Specto) */
+    color: #ffffff;
+    padding: 0.75rem 1.5rem; /* 12px vertical, 24px horizontal */
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+button[type="submit"]:hover,
+.button:hover {
+    background-color: #2980b9; /* Tom mais escuro do azul para hover */
+}
+
+button[type="submit"]:disabled {
+    background-color: #bdc3c7; /* Cinza para botões desabilitados */
+    cursor: not-allowed;
+}
+
+small {
+    font-size: 0.875rem; /* 14px */
+    color: #777;
+    display: block; /* Para ocupar a linha inteira se necessário */
+    margin-top: 0.25rem;
+}
+
+/* ==========================================================================
+   Mensagens (Erro, Sucesso, Aviso)
+   ========================================================================== */
+
+.error,
+.success,
+.warning {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 0.95rem;
+}
+
+.error {
+    color: #721c24; /* Vermelho escuro para texto */
+    background-color: #f8d7da; /* Rosa claro para fundo */
+    border-color: #f5c6cb; /* Vermelho claro para borda */
+}
+
+.success {
+    color: #155724; /* Verde escuro para texto */
+    background-color: #d4edda; /* Verde claro para fundo */
+    border-color: #c3e6cb; /* Verde claro para borda */
+}
+
+.warning {
+    color: #856404; /* Amarelo/Marrom escuro para texto */
+    background-color: #fff3cd; /* Amarelo claro para fundo */
+    border-color: #ffeeba; /* Amarelo claro para borda */
+}
+
+/* Mensagens específicas do formulário de senha */
+.form-message {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    min-height: 1.2em; /* Para evitar que o layout pule quando a mensagem aparece/some */
+}
+.form-message.error { /* Para usar a cor de erro mas sem o fundo/borda grande */
+    color: #c0392b;
+}
+.form-message.success { /* Para usar a cor de sucesso mas sem o fundo/borda grande */
+    color: #27ae60;
+}
+
+
+/* ==========================================================================
+   Status da Conexão LDAP
+   ========================================================================== */
+
+.ldap-status-box {
+    border: 1px solid #e0e0e0;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.ldap-status-box h4 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.ldap-status-box p {
+    margin: 0.3rem 0;
+    line-height: 1.5;
+}
+
+.ldap-status-box hr {
+    border: 0;
+    border-top: 1px solid #e7e7e7;
+    margin: 0.75rem 0;
+}
+
+.status-online {
+    color: #28a745; /* Verde */
+    font-weight: bold;
+}
+
+.status-offline {
+    color: #dc3545; /* Vermelho */
+    font-weight: bold;
+}
+
+.status-unavailable { /* Para backup disponível mas não ativo */
+    color: #007bff; /* Azul */
+    font-weight: normal;
+}
+
+.status-detail {
+    font-size: 0.85em;
+    color: #555;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   Status Específicos da Senha do Usuário (dentro do main)
+   ========================================================================== */
+
+.status-normal { color: #28a745; } /* Verde para status normal da senha */
+.status-warning { color: #ffc107; font-weight: bold; } /* Amarelo para aviso de expiração próxima */
+.status-expired { color: #dc3545; font-weight: bold; } /* Vermelho para senha expirada */
+
+
+/* ==========================================================================
+   Rodapé (Footer)
+   ========================================================================== */
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #34495e; /* Azul acinzentado (exemplo Specto) */
+    color: #ecf0f1; /* Cinza claro para texto */
+    font-size: 0.875rem;
+    margin-top: auto; /* Empurra o rodapé para baixo se o conteúdo for pequeno */
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ==========================================================================
+   Responsividade (Exemplo Simples)
+   ========================================================================== */
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .header-logo {
+        margin-bottom: 0.5rem;
+    }
+
+    .header-title {
+        font-size: 1.25rem;
+        margin-left: 0;
+    }
+
+    main {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    button[type="submit"],
+    .button {
+        width: 100%; /* Botões ocupam largura total em telas pequenas */
+        padding: 0.85rem;
+    }
+}
