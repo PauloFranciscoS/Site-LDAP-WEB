@@ -243,7 +243,10 @@ if (isset($_GET['success_message'])) {
                 <?php endif; ?>
             <?php endif; ?>
             <br>
-            <a href="change_password.php" class="button">Alterar Minha Senha</a>
+            <?php // NOVO AJUSTE: Exibir botão Alterar Senha apenas se a senha NÃO for configurada para nunca expirar ?>
+            <?php if (!$user_info['password_never_expires']): ?>
+                <a href="change_password.php" class="button">Alterar Minha Senha</a>
+            <?php endif; ?>
             <a href="logout.php" class="button">Sair</a>
 
         <?php elseif (isset($_SESSION['username']) && !$is_account_active): ?>
@@ -264,7 +267,9 @@ if (isset($_GET['success_message'])) {
         <?php endif; ?>
     </main>
     <footer>
-        <p>&copy; <?php echo date("Y"); ?> Specto Tecnologia - Portal de Senha</p>
+    <p>&copy; <?php echo date("Y"); ?> Specto Tecnologia - Portal de Senha | Desenvolvido por <a href="https://www.linkedin.com/in/paulo-f-santos/" class="developer-link" target="_blank">Paulo Francisco dos Santos</a></p>
+
     </footer>
 </body>
 </html>
+    

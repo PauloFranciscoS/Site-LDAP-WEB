@@ -178,16 +178,23 @@ if (isset($_GET['success'])) { // Embora esta página raramente mostre msg de su
             </div>
             <div id="password_policy_message" class="form-message"></div>
             <div id="password_message" class="form-message"></div>
-            <p>
-                <small>Requisitos da senha: Mínimo 14 caracteres, contendo letras maiúsculas, minúsculas, números e caracteres especiais (ex: !@#$%^&*).</small>
-            </p>
+            <div class="password-requirements">
+                <h4>Requisitos da senha:</h4>
+                <ul>
+                    <li>Mínimo de 14 caracteres.</li>
+                    <li>Deve conter letras maiúsculas (A-Z).</li>
+                    <li>Deve conter letras minúsculas (a-z).</li>
+                    <li>Deve conter números (0-9).</li>
+                    <li>Deve conter caracteres especiais (ex: !@#$%^&*).</li>
+                </ul>
+            </div>
             <button type="submit" id="submit_button" disabled>Alterar Senha</button>
         </form>
         <br>
         <a href="index.php" class="button">Voltar para o Início</a>
     </main>
     <footer>
-        <p>&copy; <?php echo date("Y"); ?> Specto Tecnologia - Portal de Senha</p>
+    <p>&copy; <?php echo date("Y"); ?> Specto Tecnologia - Portal de Senha | Desenvolvido por <a href="https://www.linkedin.com/in/paulo-f-santos/" class="developer-link" target="_blank">Paulo Francisco dos Santos</a></p>
     </footer>
 </body>
 </html>

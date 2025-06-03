@@ -13,6 +13,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // --- Início: Melhoria Sugerida: Throttling de Tentativas de Login (conceitual) ---
+    // A implementação completa de throttling requer um mecanismo persistente (DB, Redis, etc.)
+    // para armazenar contagens de tentativas falhas por IP ou usuário.
+    // Para simplificar, esta é uma representação conceitual.
+    // $ip_address = $_SERVER['REMOTE_ADDR'];
+    // $key = 'failed_login_attempts:' . $ip_address;
+    // $attempts = get_from_cache_or_db($key); // Função fictícia para buscar tentativas
+    //
+    // if ($attempts >= MAX_LOGIN_ATTEMPTS_ALLOWED) { // MAX_LOGIN_ATTEMPTS_ALLOWED seria uma nova constante no config.php
+    //     $error_message = "Muitas tentativas de login falhas. Por favor, tente novamente mais tarde.";
+    //     header("Location: index.php?message=" . urlencode($error_message));
+    //     exit;
+    // }
+    // --- Fim: Melhoria Sugerida ---
+
     $ldap_conn = null;
     // Tentar conectar ao LDAP primário
     $ldap_port_to_use = defined('LDAP_PORT') ? LDAP_PORT : (strpos(LDAP_SERVER, 'ldaps://') === 0 ? 636 : 389);
@@ -44,6 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // O user_dn será buscado em index.php após o redirecionamento,
             // usando o ldap_connect_admin() para mais segurança e consistência.
             
+            // --- Início: Melhoria Sugerida: Resetar contador de tentativas falhas ---
+            // reset_failed_login_attempts($ip_address); // Função fictícia
+            // --- Fim: Melhoria Sugerida ---
+
             @ldap_close($ldap_conn);
             header("Location: index.php"); // Redireciona para a página principal/status
             exit;
@@ -55,6 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             @ldap_get_option($ldap_conn, LDAP_OPT_DIAGNOSTIC_MESSAGE, $extended_ldap_error);
 
             error_log("LDAP User Bind Failed for user '$username_input' (Bind DN: '$ldap_user_bind_dn'). Error [$ldap_errno]: $ldap_errstr. Extended: $extended_ldap_error");
+
+            // --- Início: Melhoria Sugerida: Incrementar contador de tentativas falhas ---
+            // increment_failed_login_attempts($ip_address); // Função fictícia
+            // --- Fim: Melhoria Sugerida ---
 
             if ($ldap_errno == 49) { // Erro 49: Credenciais Inválidas
                 $data_code = null;
@@ -73,12 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $error_message = "Sua conta está desabilitada. Contate o suporte.";
                 } elseif ($data_code === '775') { // Conta bloqueada
                     $error_message = "Sua conta foi bloqueada devido a múltiplas tentativas de login falhas. Contate o suporte.";
-                } elseif ($data_code === '525') { // Usuário não encontrado (improvável se o formato do bind DN estiver correto)
-                    $error_message = "Usuário não encontrado. Verifique o nome de usuário.";
-                } elseif ($data_code === '52e') { // Senha incorreta
-                    $error_message = "Usuário ou senha inválidos.";
+                } elseif (in_array($data_code, ['525', '52e'])) { // AJUSTE: Usuário não encontrado ou Senha incorreta -> mensagem unificada
+                    $error_message = "Usuário ou senha inválidos. Por favor, verifique suas credenciais.";
                 } else { // Outro erro dentro do escopo de credenciais inválidas
-                    $error_message = "Usuário ou senha inválidos (detalhe no log).";
+                    // AJUSTE: Mensagem mais genérica para o usuário, mas mantendo o log detalhado.
+                    $error_message = "Usuário ou senha inválidos.";
                 }
                 
                 // Se for um caso de troca de senha obrigatória e o usuário existe
@@ -109,9 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
             } else { // Outros erros LDAP (ex: servidor indisponível após a tentativa de conexão inicial)
-                $error_message = "Erro de autenticação LDAP. Contate o suporte. (Erro: $ldap_errstr)";
+                $error_message = "Erro de autenticação LDAP. Contate o suporte. (Erro: " . ldap_error($ldap_conn) . ")"; // Ajuste: Usar ldap_error para o erro específico de conexão.
             }
-            @ldap_close($ldap_conn);
+            // @ldap_close($ldap_conn); // REMOVIDO: Já foi fechado ou será ao final do script, para evitar duplicação.
         }
     } else {
         $error_message = "Não foi possível conectar ao servidor LDAP. Verifique o status da conexão no portal ou contate o suporte.";

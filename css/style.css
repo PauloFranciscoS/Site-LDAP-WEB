@@ -2,7 +2,7 @@
    Reset Básico e Configurações Globais
    ========================================================================== */
 
-* {
+   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -307,4 +307,44 @@ footer p {
         width: 100%; /* Botões ocupam largura total em telas pequenas */
         padding: 0.85rem;
     }
+}
+
+/* Adicionado: Estilos para a seção de requisitos de senha */
+.password-requirements {
+    background-color: #e6f7ff; /* Um azul bem claro */
+    border: 1px solid #91d5ff;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.password-requirements h4 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.password-requirements ul {
+    list-style: inside disc; /* Marcadores de disco dentro da caixa */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.password-requirements ul li {
+    margin-bottom: 0.25rem;
+}
+
+/* Adicionado: Estilos para o link do desenvolvedor no rodapé */
+footer a.developer-link {
+    color: #ecf0f1; /* Cor para o link no rodapé */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a.developer-link:hover {
+    color: #ffffff; /* Cor ao passar o mouse */
+    text-decoration: underline;
 }
